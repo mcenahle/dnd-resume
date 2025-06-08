@@ -41,7 +41,7 @@ const EditHeader = () => {
             const importedWidgets = ret.data
             setWidgets(importedWidgets)
             setSelectedId(importedWidgets.length ? importedWidgets[0].id : '')
-            toast.success(t('Successfully imported configuration file'))
+            toast.success(t('message.importSuccess'))
           } else {
             console.error(ret.error)
             toast.error(t('message.parseError'))
