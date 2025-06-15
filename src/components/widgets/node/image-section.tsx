@@ -1,5 +1,5 @@
 import type { ImageSectionData } from '@/components/widgets/widgets-type.d.ts'
-import { MAX_IMAGE_SIZE, MIN_IMAGE_SIZE } from '@/const/dom.ts'
+import { MAX_IMAGE_SIZE, MIN_IMAGE_SIZE } from '@/consts/dom.ts'
 
 interface ImageSectionProps {
   data: ImageSectionData['propsData']

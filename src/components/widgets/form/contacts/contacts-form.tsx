@@ -5,7 +5,7 @@ import { LinkInput } from '@/components/widgets/form/contacts/link-input.tsx'
 import type { LinkIconNames } from '@/components/widgets/link-icon.tsx'
 import type { LinkItemData } from '@/components/widgets/widgets-type.d.ts'
 import { createLinkItem } from '@/components/widgets/widgets-util.tsx'
-import { LINK_LENGTH_LIMIT } from '@/const/dom.ts'
+import { LINK_LENGTH_LIMIT } from '@/consts/dom.ts'
 import { produce } from 'immer'
 import { Plus, Trash2 } from 'lucide-react'
 

@@ -1,7 +1,7 @@
 import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
 import { createDefaultData } from '@/components/widgets/widgets-util.tsx'
-import { S_N_WIDGET } from '@/const/storage.ts'
+import { NAME_WIDGET_DATA } from '@/consts/storage'
 import i18n from '@/i18n'
 import { storage } from '@/lib/utils.ts'
 import { toast } from 'sonner'
@@ -21,7 +21,7 @@ interface PageState {
 
 const useWidgetsStore = create<PageState>()((set, get) => {
   let widgets: WidgetNode[] = []
-  const json = storage.get(S_N_WIDGET)
+  const json = storage.get(NAME_WIDGET_DATA)
   if (json) {
     const ret = widgetsSchema.safeParse(json)
     if (ret.success) {
@@ -59,7 +59,7 @@ const useWidgetsStore = create<PageState>()((set, get) => {
             newWidgets.splice(index + 1, 0, widget)
           }
         }
-        storage.set(S_N_WIDGET, newWidgets)
+        storage.set(NAME_WIDGET_DATA, newWidgets)
         return {
           widgets: newWidgets,
           selectedId: widget.id,
@@ -78,7 +78,7 @@ const useWidgetsStore = create<PageState>()((set, get) => {
               : newWidgets.length === index
                 ? newWidgets[index - 1].id // Deleted the last one
                 : null
-        storage.set(S_N_WIDGET, newWidgets)
+        storage.set(NAME_WIDGET_DATA, newWidgets)
         return {
           widgets: newWidgets,
           selectedId,
@@ -87,11 +87,11 @@ const useWidgetsStore = create<PageState>()((set, get) => {
     },
     setWidgets: (widgets: WidgetNode[]) => {
       set({ widgets })
-      storage.set(S_N_WIDGET, widgets)
+      storage.set(NAME_WIDGET_DATA, widgets)
     },
     resetWidgets: () => {
       set({ widgets: [], selectedId: null })
-      storage.remove(S_N_WIDGET)
+      storage.remove(NAME_WIDGET_DATA)
     },
     setSelectedId: (id: string) => set({ selectedId: id }),
   }

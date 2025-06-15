@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/button.tsx'
 import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import { getBasename } from '@/components/widgets/widgets-util.tsx'
+import { NAME_SHOULD_PRINT } from '@/consts/storage.ts'
 import { encodeToBase64Url } from '@/lib/utils.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { type ChangeEvent, useRef } from 'react'
@@ -72,7 +73,7 @@ const EditHeader = () => {
   }
 
   const handleClickPrint = () => {
-    sessionStorage.setItem('PRINT', 'true')
+    sessionStorage.setItem(NAME_SHOULD_PRINT, 'true')
     navigate('/print')
   }
 
