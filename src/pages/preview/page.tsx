@@ -5,19 +5,21 @@ import { TextContent } from '@/components/widgets/node/text-content.tsx'
 import { TitleSection } from '@/components/widgets/node/title-section.tsx'
 import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
-import { t } from '@/i18n/index.ts'
+import { useT } from '@/i18n/index.ts'
 import { decodeFromBase64Url } from '@/lib/utils.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { useSearchParams } from 'react-router'
-import { toast } from 'sonner'
 
 const PagePreview = () => {
+  const { t } = useT()
   let widgets = useWidgetsStore(state => state.widgets)
   /**
    * Get widgets data from the URL query string.
    */
   const [searchParams] = useSearchParams()
   const data = searchParams.get('data')
+  let hasError = false
+
   if (data) {
     try {
       const json = decodeFromBase64Url(data)
@@ -25,19 +27,21 @@ const PagePreview = () => {
       if (ret.success) {
         widgets = ret.data
       } else {
-        widgets = []
-        console.error(ret.error)
-        setTimeout(() => {
-          toast.error(t('message.parameterError'))
-        }, 100)
+        throw ret.error
       }
     } catch (error) {
-      widgets = []
       console.error(error)
-      setTimeout(() => {
-        toast.error(t('message.parameterError'))
-      }, 100)
+      widgets = []
+      hasError = true
     }
+  }
+
+  if (hasError) {
+    return (
+      <div className="py-8 text-center text-2xl font-bold text-red-500">
+        {t('message.parameterError')}
+      </div>
+    )
   }
 
   const WidgetRenderComponent = (item: WidgetNode) => {

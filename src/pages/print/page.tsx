@@ -34,7 +34,7 @@ const PagePrint = () => {
           { once: true },
         )
         window.print()
-      }, 16)
+      }, 100)
     }
   }, [navigate, widgets])
 

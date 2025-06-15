@@ -44,8 +44,7 @@ const EditHeader = () => {
             setSelectedId(importedWidgets.length ? importedWidgets[0].id : '')
             toast.success(t('message.importSuccess'))
           } else {
-            console.error(ret.error)
-            toast.error(t('message.parseError'))
+            throw ret.error
           }
         } catch (error) {
           console.error(error)
