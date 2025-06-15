@@ -4,12 +4,16 @@ import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { defineConfig } from 'vite'
 
+const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
+
 // https://vite.dev/config/
 export default defineConfig({
   define: {
     __DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
   },
-
+  server: {
+    open: true,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -23,10 +27,15 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    sentryVitePlugin({
-      org: 'arman-4n',
-      project: 'dnd-resume',
-    }),
+    sentryAuthToken &&
+      sentryVitePlugin({
+        org: 'arman-4n',
+        project: 'dnd-resume',
+        applicationKey: 'dnd-resume',
+        sourcemaps: {
+          disable: sentryAuthToken ? false : true,
+        },
+      }),
   ],
   build: {
     rollupOptions: {
@@ -47,6 +56,6 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: true,
+    sourcemap: sentryAuthToken ? true : false,
   },
 })
