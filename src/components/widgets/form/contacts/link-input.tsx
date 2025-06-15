@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx'
+import { useT } from '@/i18n/index.ts'
 import { Link } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 
 interface LinkInputProps {
   value: string
@@ -11,7 +11,7 @@ interface LinkInputProps {
 }
 
 const LinkInput = ({ value, onChange, className }: LinkInputProps) => {
-  const { t } = useTranslation()
+  const { t } = useT()
   return (
     <Popover>
       <PopoverTrigger asChild>

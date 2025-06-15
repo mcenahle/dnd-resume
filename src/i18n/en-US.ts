@@ -1,4 +1,4 @@
-export default {
+export const en = {
   // Common
   'common.importConfig': 'Import Config',
   'common.exportConfig': 'Export Config',
@@ -50,4 +50,6 @@ export default {
   'form.styleLayout': 'Style Layout',
   'form.marginTop': 'Margin Top',
   'form.marginBottom': 'Margin Bottom',
-}
+} as const
+
+export type TranslationKeys = keyof typeof en

@@ -4,12 +4,11 @@ import type {
   WidgetNode,
   WidgetType,
 } from '@/components/widgets/widgets-type.d.ts'
-import i18n from '@/i18n'
+import { isChineseLanguage, useT } from '@/i18n/index.ts'
 import { CalendarRange, Heading, Image, Type, User } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 
 export const useWidgetMaterialList: () => WidgetMaterial[] = () => {
-  const { t } = useTranslation()
+  const { t } = useT()
   return [
     {
       type: 'BasicInfo',
@@ -44,7 +43,7 @@ export function generateWidgetId(): string {
 }
 
 export function createWidgetsNode(type: WidgetType): WidgetNode {
-  const isChinese = i18n.language === 'zh'
+  const isChinese = isChineseLanguage()
   const id = generateWidgetId()
   switch (type) {
     case 'BasicInfo':
@@ -169,7 +168,7 @@ export const createLinkItem: () => LinkItemData = () => {
 }
 
 export const createDefaultData: () => WidgetNode[] = () => {
-  const isChinese = i18n.language === 'zh'
+  const isChinese = isChineseLanguage()
   return [
     {
       type: 'BasicInfo',

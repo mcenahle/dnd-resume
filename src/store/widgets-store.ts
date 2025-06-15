@@ -2,7 +2,7 @@ import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
 import { createDefaultData } from '@/components/widgets/widgets-util.tsx'
 import { NAME_WIDGET_DATA } from '@/consts/storage'
-import i18n from '@/i18n'
+import { t } from '@/i18n/index.ts'
 import { storage } from '@/lib/utils.ts'
 import { toast } from 'sonner'
 import { create } from 'zustand'
@@ -29,7 +29,7 @@ const useWidgetsStore = create<PageState>()((set, get) => {
     } else {
       console.error(ret.error)
       setTimeout(() => {
-        toast.error(i18n.t('message.parseError'))
+        toast.error(t('message.parseError'))
       }, 100)
     }
   } else {

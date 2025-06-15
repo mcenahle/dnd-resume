@@ -11,9 +11,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog.tsx'
 import type { TextContentData } from '@/components/widgets/widgets-type.d.ts'
+import { useT } from '@/i18n/index.ts'
 import { UserPen } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 const TextContentForm = ({
   data,
@@ -22,7 +22,7 @@ const TextContentForm = ({
   data: TextContentData
   onChange: (value: TextContentData) => void
 }) => {
-  const { t } = useTranslation()
+  const { t } = useT()
   const { propsData } = data
 
   const [content, setContent] = useState('')
@@ -91,7 +91,7 @@ const TextContentForm = ({
               />
             </div>
             <DialogFooter>
-              <Button onClick={handleSave}>{t('Save')}</Button>
+              <Button onClick={handleSave}>{t('common.save')}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

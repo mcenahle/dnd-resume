@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
-import { setLanguage } from '@/i18n'
+import { setLanguage } from '@/i18n/index.ts'
 import { EditHeader } from '@/pages/edit/sections/edit-header.tsx'
 import { PanelConfig } from '@/pages/edit/sections/panel-config.tsx'
 import { PanelDnd } from '@/pages/edit/sections/panel-dnd.tsx'

@@ -2,17 +2,18 @@ import { TiptapMenuIcon } from '@/components/tiptap/tiptap-menu-icon.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover.tsx'
+import { useT } from '@/i18n/index.ts'
+
 import type { Editor } from '@tiptap/react'
 import { Check } from 'lucide-react'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface TiptapMenuProps {
   editor: Editor
 }
 
 const TiptapMenu = ({ editor }: TiptapMenuProps) => {
-  const { t } = useTranslation()
+  const { t } = useT()
 
   const [isLinkOpen, setIsLinkOpen] = useState(false)
   const [linkContent, setLinkContent] = useState<string>('')
@@ -43,7 +44,7 @@ const TiptapMenu = ({ editor }: TiptapMenuProps) => {
         onClick={() => editor.chain().focus().redo().run()}
       />
 
-      <div className="relative top-[0.5px] ml-1 mr-3 h-4 w-px bg-zinc-400"></div>
+      <div className="relative top-[0.5px] mr-3 ml-1 h-4 w-px bg-zinc-400"></div>
 
       <TiptapMenuIcon
         name="paragraph"
@@ -87,7 +88,7 @@ const TiptapMenu = ({ editor }: TiptapMenuProps) => {
         }}
       />
 
-      <div className="relative top-[0.5px] ml-1 mr-3 h-4 w-px bg-zinc-400"></div>
+      <div className="relative top-[0.5px] mr-3 ml-1 h-4 w-px bg-zinc-400"></div>
 
       <TiptapMenuIcon
         name="bold"

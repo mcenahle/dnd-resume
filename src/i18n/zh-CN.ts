@@ -1,4 +1,4 @@
-export default {
+export const zh: StrictTranslation<TranslationKeys> = {
   // Common
   'common.importConfig': '导入配置',
   'common.exportConfig': '导出配置',
@@ -50,4 +50,10 @@ export default {
   'form.styleLayout': '样式布局',
   'form.marginTop': '上边距',
   'form.marginBottom': '下边距',
+} as const
+
+import type { TranslationKeys } from './en-US'
+
+type StrictTranslation<T extends string> = {
+  [K in T]: string
 }
