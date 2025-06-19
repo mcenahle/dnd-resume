@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { defineConfig } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
 
@@ -36,6 +37,27 @@ export default defineConfig({
           disable: sentryAuthToken ? false : true,
         },
       }),
+    VitePWA({
+      manifest: false,
+      injectRegister: 'script-defer',
+      registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,jpg,png,svg,webp}'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'images-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+              },
+            },
+          },
+        ],
+      },
+    }),
   ],
   build: {
     rollupOptions: {
