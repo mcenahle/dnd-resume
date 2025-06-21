@@ -6,6 +6,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function isLocalStorageAvailable() {
+  try {
+    const testKey = '__test__'
+    localStorage.setItem(testKey, testKey)
+    localStorage.removeItem(testKey)
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
 export const storage = {
   get(key: string) {
     const value = localStorage.getItem(key)

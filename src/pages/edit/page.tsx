@@ -5,15 +5,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
-import { setLanguage } from '@/i18n/index.ts'
+import i18n, { setLanguage, t } from '@/i18n/index.ts'
+import { isLocalStorageAvailable } from '@/lib/utils.ts'
 import { EditHeader } from '@/pages/edit/sections/edit-header.tsx'
 import { PanelConfig } from '@/pages/edit/sections/panel-config.tsx'
 import { PanelDnd } from '@/pages/edit/sections/panel-dnd.tsx'
 import { PanelMaterials } from '@/pages/edit/sections/panel-materials.tsx'
-import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 const PageEdit = () => {
-  const { i18n } = useTranslation()
+  useEffect(() => {
+    const toastId = !isLocalStorageAvailable()
+      ? toast.warning(t('message.localStorageDisabled'), {
+          description: t('message.localStorageDisabledDesc'),
+          duration: Infinity,
+        })
+      : null
+    return () => {
+      if (toastId) {
+        toast.dismiss(toastId)
+      }
+    }
+  }, [])
+
   return (
     <div className="h-[100vh]">
       <EditHeader />

@@ -15,6 +15,9 @@ export const zh: StrictTranslation<TranslationKeys> = {
   'message.parameterError': '参数解析失败',
   'message.confirmReset': '确认重置？',
   'message.resetWarning': '重置后数据不可恢复。',
+  'message.localStorageDisabled': '本地存储不可用',
+  'message.localStorageDisabledDesc':
+    '您的浏览器已禁用本地存储，这可能导致部分功能无法正常使用。请检查浏览器设置以启用它。',
 
   // Widgets
   'widgets.basicInfo': '基本信息',

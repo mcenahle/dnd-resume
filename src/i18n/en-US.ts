@@ -13,8 +13,11 @@ export const en = {
   'message.importSuccess': 'Successfully imported configuration file',
   'message.parseError': 'Failed to parse configuration file',
   'message.parameterError': 'Parameter parsing failed',
-  'message.confirmReset': 'Confirm reset?',
-  'message.resetWarning': 'Data cannot be recovered after reset.',
+  'message.confirmReset': 'Are you sure you want to reset?',
+  'message.resetWarning': 'Data cannot be recovered after resetting.',
+  'message.localStorageDisabled': 'Local Storage Disabled',
+  'message.localStorageDisabledDesc':
+    'Your browser has disabled local storage, which may prevent some features from working correctly. Please check your browser settings to enable it.',
 
   // Widgets
   'widgets.basicInfo': 'Basic Info',

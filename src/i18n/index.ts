@@ -31,15 +31,7 @@ i18n
     adaptLanguage(i18n.language)
   })
 
-function adaptLanguage(lang: string) {
-  if (lang === 'zh') {
-    document.documentElement.lang = 'zh-CN'
-    document.title = '在线简历生成工具'
-  } else {
-    document.documentElement.lang = 'en-US'
-    document.title = 'Resume Builder'
-  }
-}
+export default i18n
 
 export function setLanguage(lang: 'en' | 'zh') {
   i18n.changeLanguage(lang).then(() => {})
@@ -59,4 +51,14 @@ export const useT = () => {
   const t = (key: TranslationKeys): string => originalT(key)
 
   return { t }
+}
+
+function adaptLanguage(lang: string) {
+  if (lang === 'zh') {
+    document.documentElement.lang = 'zh-CN'
+    document.title = '在线简历生成工具'
+  } else {
+    document.documentElement.lang = 'en-US'
+    document.title = 'Resume Builder'
+  }
 }
