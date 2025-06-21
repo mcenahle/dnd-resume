@@ -22,15 +22,15 @@ const PagePreview = () => {
 
   if (data) {
     try {
-      const json = decodeFromBase64Url(data)
-      const ret = widgetsSchema.safeParse(JSON.parse(json))
+      const text = decodeFromBase64Url(data)
+      const ret = widgetsSchema.safeParse(JSON.parse(text))
       if (ret.success) {
         widgets = ret.data
       } else {
         throw ret.error
       }
     } catch (error) {
-      console.error(error)
+      console.warn('Preview data parse error', error)
       widgets = []
       hasError = true
     }

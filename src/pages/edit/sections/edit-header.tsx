@@ -36,8 +36,8 @@ const EditHeader = () => {
       const reader = new FileReader()
       reader.onload = e => {
         try {
-          const json = e.target?.result as string
-          const ret = widgetsSchema.safeParse(JSON.parse(json))
+          const text = e.target?.result as string
+          const ret = widgetsSchema.safeParse(JSON.parse(text))
           if (ret.success) {
             const importedWidgets = ret.data
             setWidgets(importedWidgets)
@@ -47,11 +47,12 @@ const EditHeader = () => {
             throw ret.error
           }
         } catch (error) {
-          console.error(error)
+          console.warn('Import config parse error', error)
           toast.error(t('message.parseError'))
         }
       }
       reader.readAsText(file)
+      event.target.value = ''
     }
   }
 

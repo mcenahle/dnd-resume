@@ -27,7 +27,7 @@ const useWidgetsStore = create<PageState>()((set, get) => {
     if (ret.success) {
       widgets = ret.data
     } else {
-      console.error(ret.error)
+      console.warn('Local config parse error', ret.error)
       setTimeout(() => {
         toast.error(t('message.parseError'))
       }, 100)
