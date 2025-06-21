@@ -56,7 +56,7 @@ root.render(
           />
         </Routes>
         <Analytics />
-        <SpeedInsights />
+        <SpeedInsights sampleRate={0.2} />
       </BrowserRouter>
     </ErrorBoundary>
   </StrictMode>,
