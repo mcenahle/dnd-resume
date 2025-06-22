@@ -7,6 +7,11 @@ import type {
 import { isChineseLanguage } from '@/locales/i18n.ts'
 import { CalendarRange, Heading, Image, Type, User } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
+import { widgetsSchema } from './widgets-schema.ts'
+import { storage } from '@/lib/storage.ts'
+import { NAME_WIDGET_DATA } from '@/consts/storage.ts'
+import i18n from 'i18next'
 
 export const useWidgetMaterialList: () => WidgetMaterial[] = () => {
   const { t } = useTranslation()
@@ -168,7 +173,26 @@ export const createLinkItem: () => LinkItemData = () => {
   }
 }
 
-export const createDefaultData: () => WidgetNode[] = () => {
+export function getDefaultWidgets(): WidgetNode[] {
+  let widgets: WidgetNode[] = []
+  const json = storage.get(NAME_WIDGET_DATA)
+  if (json) {
+    const ret = widgetsSchema.safeParse(json)
+    if (ret.success) {
+      widgets = ret.data
+    } else {
+      console.warn('Local config parse error', ret.error)
+      setTimeout(() => {
+        toast.error(i18n.t('message.parseError'))
+      }, 100)
+    }
+  } else {
+    widgets = createDefaultData()
+  }
+  return widgets
+}
+
+function createDefaultData(): WidgetNode[] {
   const isChinese = isChineseLanguage()
   return [
     {

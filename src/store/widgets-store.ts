@@ -1,10 +1,7 @@
-import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
-import { createDefaultData } from '@/components/widgets/widgets-util.tsx'
-import { NAME_WIDGET_DATA } from '@/consts/storage'
+import { getDefaultWidgets } from '@/components/widgets/widgets-util.tsx'
+import { NAME_WIDGET_DATA } from '@/consts/storage.ts'
 import { storage } from '@/lib/storage.ts'
-import i18n from 'i18next'
-import { toast } from 'sonner'
 import { create } from 'zustand'
 
 interface PageState {
@@ -20,22 +17,7 @@ interface PageState {
 }
 
 const useWidgetsStore = create<PageState>()((set, get) => {
-  let widgets: WidgetNode[] = []
-  const json = storage.get(NAME_WIDGET_DATA)
-  if (json) {
-    const ret = widgetsSchema.safeParse(json)
-    if (ret.success) {
-      widgets = ret.data
-    } else {
-      console.warn('Local config parse error', ret.error)
-      setTimeout(() => {
-        toast.error(i18n.t('message.parseError'))
-      }, 100)
-    }
-  } else {
-    // initial data
-    widgets = createDefaultData()
-  }
+  const widgets = getDefaultWidgets()
   const selectedId = widgets.length ? widgets[0].id : null
 
   return {
