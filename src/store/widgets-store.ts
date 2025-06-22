@@ -3,7 +3,7 @@ import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
 import { createDefaultData } from '@/components/widgets/widgets-util.tsx'
 import { NAME_WIDGET_DATA } from '@/consts/storage'
 import { t } from '@/i18n/index.ts'
-import { storage } from '@/lib/utils.ts'
+import { storage } from '@/lib/storage.ts'
 import { toast } from 'sonner'
 import { create } from 'zustand'
 

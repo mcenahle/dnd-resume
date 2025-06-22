@@ -6,7 +6,7 @@ import { TitleSection } from '@/components/widgets/node/title-section.tsx'
 import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
 import { useT } from '@/i18n/index.ts'
-import { decodeFromBase64Url } from '@/lib/utils.ts'
+import { decodeText } from '@/lib/codec.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { useSearchParams } from 'react-router'
 
@@ -22,7 +22,7 @@ const PagePreview = () => {
 
   if (data) {
     try {
-      const text = decodeFromBase64Url(data)
+      const text = decodeText(data)
       const ret = widgetsSchema.safeParse(JSON.parse(text))
       if (ret.success) {
         widgets = ret.data
