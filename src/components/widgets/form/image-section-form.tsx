@@ -47,6 +47,10 @@ const ImageSectionForm = ({
           url: objectUrl,
         },
       })
+      // revoke old object url to avoid memory leak
+      if (propsData.url.startsWith('blob:')) {
+        URL.revokeObjectURL(propsData.url)
+      }
     }
   }
 

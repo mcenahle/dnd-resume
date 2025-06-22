@@ -50,6 +50,10 @@ const BasicInfoForm = ({
           avatarUrl: objectUrl,
         },
       })
+      // revoke old object url to avoid memory leak
+      if (propsData.avatarUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(propsData.avatarUrl)
+      }
     }
   }
 

@@ -89,12 +89,14 @@ const PanelConfig = () => {
 
   return (
     <div className="p-4">
+      {/* specific widget form */}
       <div className="flex items-center text-xl">
         {widgetMaterialInfo.icon}
         <span className="ml-2 text-xl font-medium">{widgetMaterialInfo.title}</span>
       </div>
       {FormComponent}
 
+      {/* common style form */}
       <div className="mt-4 flex items-center">
         <LayoutFill
           width={20}
