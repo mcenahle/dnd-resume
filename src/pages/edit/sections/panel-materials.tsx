@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button.tsx'
-import type { WidgetType } from '@/components/widgets/widgets-type'
+import type { WidgetType } from '@/components/widgets/widgets-type.d.ts'
 import { createWidgetsNode, useWidgetMaterialList } from '@/components/widgets/widgets-util.tsx'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { Plus } from 'lucide-react'

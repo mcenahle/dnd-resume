@@ -5,7 +5,7 @@ import { ImageSectionForm } from '@/components/widgets/form/image-section-form.t
 import { StyleForm } from '@/components/widgets/form/style-form.tsx'
 import { TextContentForm } from '@/components/widgets/form/text-content-form.tsx'
 import { TitleSectionForm } from '@/components/widgets/form/title-section-form.tsx'
-import type { StyleData } from '@/components/widgets/widgets-type'
+import type { StyleData } from '@/components/widgets/widgets-type.d.ts'
 import { useWidgetMaterialList } from '@/components/widgets/widgets-util.tsx'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { produce } from 'immer'
