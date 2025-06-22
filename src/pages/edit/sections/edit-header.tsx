@@ -13,8 +13,8 @@ import {
 import { Button } from '@/components/ui/button.tsx'
 import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import { getBasename } from '@/components/widgets/widgets-util.tsx'
-import { NAME_SHOULD_PRINT } from '@/consts/storage.ts'
 import { encodeText } from '@/lib/codec.ts'
+import { NAME_SHOULD_PRINT, setSessionStorage } from '@/lib/storage.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { type ChangeEvent, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -73,7 +73,7 @@ const EditHeader = () => {
   }
 
   const handleClickPrint = () => {
-    sessionStorage.setItem(NAME_SHOULD_PRINT, 'true')
+    setSessionStorage(NAME_SHOULD_PRINT, true)
     navigate('/print')
   }
 

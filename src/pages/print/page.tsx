@@ -5,7 +5,7 @@ import { TextContent } from '@/components/widgets/node/text-content.tsx'
 import { TitleSection } from '@/components/widgets/node/title-section.tsx'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
 import { getBasename } from '@/components/widgets/widgets-util.tsx'
-import { NAME_SHOULD_PRINT } from '@/consts/storage.ts'
+import { getSessionStorage, NAME_SHOULD_PRINT, removeSessionStorage } from '@/lib/storage.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
@@ -18,8 +18,8 @@ const PagePrint = () => {
    */
   const navigate = useNavigate()
   useEffect(() => {
-    if (sessionStorage.getItem(NAME_SHOULD_PRINT)) {
-      sessionStorage.removeItem(NAME_SHOULD_PRINT)
+    if (getSessionStorage(NAME_SHOULD_PRINT)) {
+      removeSessionStorage(NAME_SHOULD_PRINT)
       setTimeout(() => {
         // print filename
         const originalTitle = document.title

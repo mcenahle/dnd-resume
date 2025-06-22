@@ -1,8 +1,8 @@
-import { NAME_LANGUAGE } from '@/consts/storage.ts'
+import { getLocalStorage, NAME_LANGUAGE, setLocalStorage } from '@/lib/storage.ts'
 import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 import en from './en.json'
 import zh from './zh.json'
-import { initReactI18next } from 'react-i18next'
 
 i18n
   .use(initReactI18next)
@@ -16,7 +16,7 @@ i18n
       },
     },
     lng: (function () {
-      const storageValue = localStorage.getItem(NAME_LANGUAGE)
+      const storageValue = getLocalStorage(NAME_LANGUAGE)
       if (storageValue === 'en' || storageValue === 'zh') return storageValue
       return navigator.language?.startsWith('zh-') ? 'zh' : 'en'
     })(),
@@ -32,7 +32,7 @@ i18n
 export function setLanguage(lang: 'en' | 'zh') {
   i18n.changeLanguage(lang).then(() => {
     applyLanguageToDocument(lang)
-    localStorage.setItem(NAME_LANGUAGE, lang)
+    setLocalStorage(NAME_LANGUAGE, lang)
   })
 }
 

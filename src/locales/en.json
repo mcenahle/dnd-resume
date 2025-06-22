@@ -15,8 +15,8 @@
     "parameterError": "Parameter parsing failed",
     "confirmReset": "Are you sure you want to reset?",
     "resetWarning": "Data cannot be recovered after resetting.",
-    "localStorageDisabled": "Local Storage Disabled",
-    "localStorageDisabledDesc": "Your browser has disabled local storage, which may prevent some features from working correctly. Please check your browser settings to enable it."
+    "storageIsDisabled": "Local Storage Disabled",
+    "storageIsDisabledDesc": "Your browser has disabled local storage, which may prevent some features from working correctly. Please check your browser settings to enable it."
   },
   "widgets": {
     "basicInfo": "Basic Info",

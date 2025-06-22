@@ -1,7 +1,6 @@
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
 import { getDefaultWidgets } from '@/components/widgets/widgets-util.tsx'
-import { NAME_WIDGET_DATA } from '@/consts/storage.ts'
-import { storage } from '@/lib/storage.ts'
+import { NAME_WIDGET_DATA, removeLocalStorage, setLocalStorage } from '@/lib/storage.ts'
 import { create } from 'zustand'
 
 interface PageState {
@@ -41,7 +40,7 @@ const useWidgetsStore = create<PageState>()((set, get) => {
             newWidgets.splice(index + 1, 0, widget)
           }
         }
-        storage.set(NAME_WIDGET_DATA, newWidgets)
+        setLocalStorage(NAME_WIDGET_DATA, newWidgets)
         return {
           widgets: newWidgets,
           selectedId: widget.id,
@@ -60,7 +59,7 @@ const useWidgetsStore = create<PageState>()((set, get) => {
               : newWidgets.length === index
                 ? newWidgets[index - 1].id // Deleted the last one
                 : null
-        storage.set(NAME_WIDGET_DATA, newWidgets)
+        setLocalStorage(NAME_WIDGET_DATA, newWidgets)
         return {
           widgets: newWidgets,
           selectedId,
@@ -69,11 +68,11 @@ const useWidgetsStore = create<PageState>()((set, get) => {
     },
     setWidgets: (widgets: WidgetNode[]) => {
       set({ widgets })
-      storage.set(NAME_WIDGET_DATA, widgets)
+      setLocalStorage(NAME_WIDGET_DATA, widgets)
     },
     resetWidgets: () => {
       set({ widgets: [], selectedId: null })
-      storage.remove(NAME_WIDGET_DATA)
+      removeLocalStorage(NAME_WIDGET_DATA)
     },
     setSelectedId: (id: string) => set({ selectedId: id }),
   }

@@ -9,8 +9,7 @@ import { CalendarRange, Heading, Image, Type, User } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { widgetsSchema } from './widgets-schema.ts'
-import { storage } from '@/lib/storage.ts'
-import { NAME_WIDGET_DATA } from '@/consts/storage.ts'
+import { getLocalStorage, NAME_WIDGET_DATA } from '@/lib/storage.ts'
 import i18n from 'i18next'
 
 export const useWidgetMaterialList: () => WidgetMaterial[] = () => {
@@ -175,7 +174,7 @@ export const createLinkItem: () => LinkItemData = () => {
 
 export function getDefaultWidgets(): WidgetNode[] {
   let widgets: WidgetNode[] = []
-  const json = storage.get(NAME_WIDGET_DATA)
+  const json = getLocalStorage(NAME_WIDGET_DATA)
   if (json) {
     const ret = widgetsSchema.safeParse(json)
     if (ret.success) {

@@ -5,8 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
-import { setLanguage } from '@/locales/i18n.ts'
 import { isLocalStorageAvailable } from '@/lib/storage.ts'
+import { setLanguage } from '@/locales/i18n.ts'
 import { EditHeader } from '@/pages/edit/sections/edit-header.tsx'
 import { PanelConfig } from '@/pages/edit/sections/panel-config.tsx'
 import { PanelDnd } from '@/pages/edit/sections/panel-dnd.tsx'
@@ -18,8 +18,8 @@ import { toast } from 'sonner'
 const PageEdit = () => {
   useEffect(() => {
     const toastId = !isLocalStorageAvailable()
-      ? toast.warning(i18n.t('message.localStorageDisabled'), {
-          description: i18n.t('message.localStorageDisabledDesc'),
+      ? toast.warning(i18n.t('message.storageIsDisabled'), {
+          description: i18n.t('message.storageIsDisabledDesc'),
           duration: Infinity,
         })
       : null
