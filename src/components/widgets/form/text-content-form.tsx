@@ -11,9 +11,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog.tsx'
 import type { TextContentData } from '@/components/widgets/widgets-type.d.ts'
-import { useT } from '@/i18n/index.ts'
 import { UserPen } from 'lucide-react'
 import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const TextContentForm = ({
   data,
@@ -22,7 +22,7 @@ const TextContentForm = ({
   data: TextContentData
   onChange: (value: TextContentData) => void
 }) => {
-  const { t } = useT()
+  const { t } = useTranslation()
   const { propsData } = data
 
   const [content, setContent] = useState('')

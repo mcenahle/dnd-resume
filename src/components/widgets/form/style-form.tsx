@@ -2,8 +2,8 @@ import { Input } from '@/components/ui/input.tsx'
 import { Slider } from '@/components/ui/slider.tsx'
 import type { StyleData } from '@/components/widgets/widgets-type.d.ts'
 import { MAX_MARGIN_VAL, MIN_MARGIN_VAL } from '@/consts/dom.ts'
-import { useT } from '@/i18n/index.ts'
 import type { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface StyleFormProps {
   styleData: StyleData
@@ -11,7 +11,7 @@ interface StyleFormProps {
 }
 
 function StyleForm({ styleData, onStyleChange }: StyleFormProps) {
-  const { t } = useT()
+  const { t } = useTranslation()
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target

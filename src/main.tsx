@@ -1,5 +1,5 @@
 import '@/instrument.ts'
-import '@/i18n/index.ts'
+import '@/locales/i18n.ts'
 import '@/index.css'
 import { ErrorBoundary } from '@/components/layout/error-boundary.tsx'
 import { Toaster } from '@/components/ui/sonner'

@@ -4,11 +4,12 @@ import type {
   WidgetNode,
   WidgetType,
 } from '@/components/widgets/widgets-type.d.ts'
-import { isChineseLanguage, useT } from '@/i18n/index.ts'
+import { isChineseLanguage } from '@/locales/i18n.ts'
 import { CalendarRange, Heading, Image, Type, User } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export const useWidgetMaterialList: () => WidgetMaterial[] = () => {
-  const { t } = useT()
+  const { t } = useTranslation()
   return [
     {
       type: 'BasicInfo',

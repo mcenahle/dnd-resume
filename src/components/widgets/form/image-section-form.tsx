@@ -3,9 +3,9 @@ import { Input } from '@/components/ui/input.tsx'
 import { Slider } from '@/components/ui/slider.tsx'
 import type { ImageSectionData } from '@/components/widgets/widgets-type.d.ts'
 import { MAX_IMAGE_BR, MAX_IMAGE_SIZE, MIN_IMAGE_BR, MIN_IMAGE_SIZE } from '@/consts/dom.ts'
-import { useT } from '@/i18n/index.ts'
 import { Upload } from 'lucide-react'
 import { useRef, type ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import invariant from 'tiny-invariant'
 
 const ImageSectionForm = ({
@@ -15,7 +15,7 @@ const ImageSectionForm = ({
   data: ImageSectionData
   onChange: (value: ImageSectionData) => void
 }) => {
-  const { t } = useT()
+  const { t } = useTranslation()
   const { propsData } = data
   const { url, imageSize, borderRadius } = propsData
 

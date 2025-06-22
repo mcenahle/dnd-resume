@@ -2,8 +2,8 @@ import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
 import { createDefaultData } from '@/components/widgets/widgets-util.tsx'
 import { NAME_WIDGET_DATA } from '@/consts/storage'
-import { t } from '@/i18n/index.ts'
 import { storage } from '@/lib/storage.ts'
+import i18n from 'i18next'
 import { toast } from 'sonner'
 import { create } from 'zustand'
 
@@ -29,7 +29,7 @@ const useWidgetsStore = create<PageState>()((set, get) => {
     } else {
       console.warn('Local config parse error', ret.error)
       setTimeout(() => {
-        toast.error(t('message.parseError'))
+        toast.error(i18n.t('message.parseError'))
       }, 100)
     }
   } else {

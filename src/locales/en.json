@@ -1,0 +1,56 @@
+{
+  "common": {
+    "importConfig": "Import Config",
+    "exportConfig": "Export Config",
+    "reset": "Reset",
+    "preview": "Preview",
+    "print": "Print",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "message": {
+    "importSuccess": "Successfully imported configuration file",
+    "parseError": "Failed to parse configuration file",
+    "parameterError": "Parameter parsing failed",
+    "confirmReset": "Are you sure you want to reset?",
+    "resetWarning": "Data cannot be recovered after resetting.",
+    "localStorageDisabled": "Local Storage Disabled",
+    "localStorageDisabledDesc": "Your browser has disabled local storage, which may prevent some features from working correctly. Please check your browser settings to enable it."
+  },
+  "widgets": {
+    "basicInfo": "Basic Info",
+    "title": "Title",
+    "experience": "Experience",
+    "text": "Text",
+    "image": "Image"
+  },
+  "form": {
+    "titleContent": "Title Content",
+    "enterTitle": "Enter title content",
+    "avatarUrl": "Avatar URL",
+    "enterAvatarUrl": "Enter avatar URL",
+    "avatarSize": "Avatar Size",
+    "name": "Name",
+    "enterName": "Enter name",
+    "position": "Position",
+    "enterPosition": "Enter position",
+    "contactInfo1": "Contact Information (Row 1)",
+    "contactInfo2": "Contact Information (Row 2)",
+    "contactInfo3": "Contact Information (Row 3)",
+    "enterLink": "Enter link address",
+    "experienceContent": "Experience Content",
+    "enterExperience": "Enter experience",
+    "timeRange": "Time Range",
+    "enterTimeRange": "Enter time range",
+    "imageUrl": "Image URL",
+    "enterImageUrl": "Enter image URL",
+    "imageSize": "Image Size (percentage)",
+    "borderRadius": "Border Radius",
+    "textContent": "Text Content",
+    "editContent": "Edit Content",
+    "styleLayout": "Style Layout",
+    "marginTop": "Margin Top",
+    "marginBottom": "Margin Bottom"
+  }
+}

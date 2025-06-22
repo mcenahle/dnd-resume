@@ -14,15 +14,15 @@ import { Button } from '@/components/ui/button.tsx'
 import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import { getBasename } from '@/components/widgets/widgets-util.tsx'
 import { NAME_SHOULD_PRINT } from '@/consts/storage.ts'
-import { useT } from '@/i18n/index.ts'
 import { encodeText } from '@/lib/codec.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { type ChangeEvent, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { toast } from 'sonner'
 
 const EditHeader = () => {
-  const { t } = useT()
+  const { t } = useTranslation()
   const widgets = useWidgetsStore(state => state.widgets)
   const resetWidgets = useWidgetsStore(state => state.resetWidgets)
   const setWidgets = useWidgetsStore(state => state.setWidgets)

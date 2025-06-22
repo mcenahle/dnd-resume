@@ -5,11 +5,11 @@ import { AvatarRoundedSelect } from '@/components/widgets/form/avatar/avatar-rou
 import { ContactsForm } from '@/components/widgets/form/contacts/contacts-form.tsx'
 import type { BasicInfoData, LinkItemData } from '@/components/widgets/widgets-type.d.ts'
 import { MAX_AVATAR_SIZE, MIN_AVATAR_SIZE } from '@/consts/dom.ts'
-import { useT } from '@/i18n/index.ts'
 import { produce } from 'immer'
 import { Upload } from 'lucide-react'
 import type { ChangeEvent } from 'react'
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import invariant from 'tiny-invariant'
 
 const BasicInfoForm = ({
@@ -19,7 +19,7 @@ const BasicInfoForm = ({
   data: BasicInfoData
   onChange: (value: BasicInfoData) => void
 }) => {
-  const { t } = useT()
+  const { t } = useTranslation()
   const { propsData } = data
   const { avatarUrl, avatarSize, avatarRound, name, jobTitle, linksGroup } = propsData
 

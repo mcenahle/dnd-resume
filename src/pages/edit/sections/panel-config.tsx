@@ -7,13 +7,13 @@ import { TextContentForm } from '@/components/widgets/form/text-content-form.tsx
 import { TitleSectionForm } from '@/components/widgets/form/title-section-form.tsx'
 import type { StyleData } from '@/components/widgets/widgets-type'
 import { useWidgetMaterialList } from '@/components/widgets/widgets-util.tsx'
-import { useT } from '@/i18n/index.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
 import { produce } from 'immer'
+import { useTranslation } from 'react-i18next'
 import invariant from 'tiny-invariant'
 
 const PanelConfig = () => {
-  const { t } = useT()
+  const { t } = useTranslation()
   const list = useWidgetMaterialList()
   const widgets = useWidgetsStore(state => state.widgets)
   const setWidgets = useWidgetsStore(state => state.setWidgets)

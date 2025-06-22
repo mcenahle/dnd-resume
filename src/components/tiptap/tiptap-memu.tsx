@@ -2,18 +2,17 @@ import { TiptapMenuIcon } from '@/components/tiptap/tiptap-menu-icon.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover.tsx'
-import { useT } from '@/i18n/index.ts'
-
 import type { Editor } from '@tiptap/react'
 import { Check } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface TiptapMenuProps {
   editor: Editor
 }
 
 const TiptapMenu = ({ editor }: TiptapMenuProps) => {
-  const { t } = useT()
+  const { t } = useTranslation()
 
   const [isLinkOpen, setIsLinkOpen] = useState(false)
   const [linkContent, setLinkContent] = useState<string>('')

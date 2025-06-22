@@ -5,13 +5,13 @@ import { TextContent } from '@/components/widgets/node/text-content.tsx'
 import { TitleSection } from '@/components/widgets/node/title-section.tsx'
 import { widgetsSchema } from '@/components/widgets/widgets-schema.ts'
 import type { WidgetNode } from '@/components/widgets/widgets-type.d.ts'
-import { useT } from '@/i18n/index.ts'
 import { decodeText } from '@/lib/codec.ts'
 import { useWidgetsStore } from '@/store/widgets-store.ts'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 const PagePreview = () => {
-  const { t } = useT()
+  const { t } = useTranslation()
   let widgets = useWidgetsStore(state => state.widgets)
   /**
    * Get widgets data from the URL query string.

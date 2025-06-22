@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input.tsx'
 import type { TitleSectionData } from '@/components/widgets/widgets-type.d.ts'
-import { useT } from '@/i18n/index.ts'
 import type { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const TitleSectionForm = ({
   data,
@@ -10,7 +10,7 @@ const TitleSectionForm = ({
   data: TitleSectionData
   onChange: (value: TitleSectionData) => void
 }) => {
-  const { t } = useT()
+  const { t } = useTranslation()
   const { propsData } = data
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
