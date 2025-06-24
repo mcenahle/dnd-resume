@@ -45,7 +45,7 @@ const TiptapEditor = ({ content, ref }: TiptapProps) => {
       className="h-full"
       onClick={handleClickBg}
     >
-      <div className="h-10 w-full">{editor && <TiptapMenu editor={editor} />}</div>
+      <div className="mb-3 w-full">{editor && <TiptapMenu editor={editor} />}</div>
       <div className="h-[calc(100%-48px)] overflow-auto">
         <EditorContent editor={editor} />
       </div>

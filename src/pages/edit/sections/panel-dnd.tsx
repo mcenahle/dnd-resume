@@ -54,7 +54,7 @@ function PanelDnd() {
   }
 
   return (
-    <ul className="print-wrapper relative rounded-2xl border">
+    <ul className="print-wrapper relative basis-[900px] rounded-2xl border">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

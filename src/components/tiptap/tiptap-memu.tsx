@@ -33,7 +33,7 @@ const TiptapMenu = ({ editor }: TiptapMenuProps) => {
   }
 
   return (
-    <div className="flex h-full items-center">
+    <div className="flex h-full flex-wrap items-center">
       <TiptapMenuIcon
         name="undo"
         onClick={() => editor.chain().focus().undo().run()}

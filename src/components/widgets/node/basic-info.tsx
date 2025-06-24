@@ -18,7 +18,7 @@ const BasicInfo = ({ data }: BasicInfoProps) => {
   }
 
   return (
-    <div className="flex-center py-5">
+    <div className="flex-center @container py-5">
       {/* Avatar */}
       {avatarUrl ? (
         <img
@@ -26,7 +26,7 @@ const BasicInfo = ({ data }: BasicInfoProps) => {
           alt="avatar"
           width={avatarSize || 100}
           height={avatarSize || 100}
-          className={clsx('mr-8 sm:mr-16', avatarRound && 'rounded-full')}
+          className={clsx('mr-8 @lg:mr-16', avatarRound && 'rounded-full')}
           draggable={false}
           onLoad={handleImgLoaded}
         />
@@ -41,7 +41,7 @@ const BasicInfo = ({ data }: BasicInfoProps) => {
         <ul>
           {linksGroup.map((links, groupIndex) => (
             <li key={groupIndex}>
-              <ul className="flex flex-wrap items-center sm:flex-nowrap">
+              <ul className="flex flex-wrap items-center @3xl:flex-nowrap">
                 {links.map((item, index) => (
                   <li
                     key={index}

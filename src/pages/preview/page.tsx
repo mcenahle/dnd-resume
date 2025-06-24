@@ -61,7 +61,7 @@ const PagePreview = () => {
 
   return (
     <div className="bg-zinc-50 lg:min-h-[100vh] lg:py-8">
-      <div className="mx-auto shadow-2xl lg:w-[900px] print:w-[900px]">
+      <div className="mx-auto lg:w-[860px] lg:shadow-2xl print:w-[900px]">
         <ul className="print-wrapper">
           {widgets.map(item => (
             <li

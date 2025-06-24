@@ -75,7 +75,7 @@ const TextContentForm = ({
           </DialogTrigger>
 
           <DialogContent
-            className="min-w-[800px]"
+            className="sm:min-w-[600px] lg:min-w-[800px]"
             onEscapeKeyDown={e => e.preventDefault()}
           >
             <DialogHeader>
