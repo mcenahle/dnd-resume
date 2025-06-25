@@ -49,7 +49,7 @@ function DraggableNode({ item, isSelected }: { item: WidgetNode; isSelected: boo
 
   const OperationButtons = () =>
     isSelected ? (
-      <div className="absolute right-1 top-1 flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="absolute top-1 right-1 flex items-center gap-2 transition-opacity">
         <Button
           variant="outline"
           size="icon"
