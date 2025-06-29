@@ -14,9 +14,9 @@ if (import.meta.env.VITE_SENTRY_DSN) {
         behaviour: 'drop-error-if-contains-third-party-frames',
       }),
     ],
-    // Tracing Options
+    // Tracing Options: https://docs.sentry.io/platforms/javascript/guides/react/tracing/
     tracesSampleRate: 0.2,
-    // Session Replay Options
+    // Session Replay Options: https://docs.sentry.io/platforms/javascript/guides/react/session-replay/
     replaysSessionSampleRate: 0,
     replaysOnErrorSampleRate: 1,
   })
