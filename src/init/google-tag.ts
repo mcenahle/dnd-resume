@@ -4,8 +4,8 @@ declare global {
   }
 }
 
-if (import.meta.env.VITE_MEASUREMENT_ID) {
-  const id = import.meta.env.VITE_MEASUREMENT_ID
+if (import.meta.env.GOOGLE_MEASUREMENT_ID) {
+  const id = import.meta.env.GOOGLE_MEASUREMENT_ID
   const script = document.createElement('script')
   script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`
   script.async = true

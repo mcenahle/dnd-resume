@@ -4,8 +4,7 @@ import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-
-const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
+import { htmlPlugin } from './plugins/html-plugin.ts'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,6 +13,7 @@ export default defineConfig({
   },
   server: {
     open: true,
+    allowedHosts: true,
   },
   resolve: {
     alias: {
@@ -28,13 +28,15 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    sentryAuthToken &&
+    htmlPlugin(),
+    process.env.SENTRY_AUTH_TOKEN &&
       sentryVitePlugin({
-        org: 'arman-4n',
-        project: 'dnd-resume',
-        applicationKey: 'dnd-resume',
+        org: process.env.SENTRY_ORG,
+        project: process.env.SENTRY_PROJECT,
+        applicationKey: process.env.SENTRY_PROJECT,
         sourcemaps: {
-          disable: sentryAuthToken ? false : true,
+          disable: process.env.SENTRY_AUTH_TOKEN ? false : true,
+          filesToDeleteAfterUpload: ['**/*.map'],
         },
       }),
     VitePWA({
@@ -78,6 +80,6 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: sentryAuthToken ? true : false,
+    sourcemap: process.env.SENTRY_AUTH_TOKEN ? 'hidden' : false,
   },
 })

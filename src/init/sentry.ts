@@ -1,8 +1,8 @@
 import * as Sentry from '@sentry/react'
 
-if (import.meta.env.VITE_SENTRY_DSN) {
+if (import.meta.env.SENTRY_DSN) {
   Sentry.init({
-    dsn: import.meta.env.VITE_SENTRY_DSN,
+    dsn: import.meta.env.SENTRY_DSN,
     environment: import.meta.env.MODE,
     release: 'dnd-' + __DATE__,
     ignoreErrors: ['ResizeObserver loop limit exceeded'],
