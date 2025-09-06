@@ -2,9 +2,11 @@ import { sentryVitePlugin } from '@sentry/vite-plugin'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { htmlPlugin } from './plugins/html-plugin.ts'
+
+const env = loadEnv(process.env.NODE_ENV!, process.cwd(), '')
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -32,13 +34,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
     htmlPlugin(),
-    process.env.SENTRY_AUTH_TOKEN &&
+    env.SENTRY_AUTH_TOKEN &&
       sentryVitePlugin({
-        org: process.env.SENTRY_ORG,
-        project: process.env.SENTRY_PROJECT,
-        applicationKey: process.env.SENTRY_PROJECT,
+        org: env.SENTRY_ORG,
+        project: env.SENTRY_PROJECT,
+        applicationKey: env.SENTRY_PROJECT,
         sourcemaps: {
-          disable: process.env.SENTRY_AUTH_TOKEN ? false : true,
+          disable: env.SENTRY_AUTH_TOKEN ? false : true,
           filesToDeleteAfterUpload: ['**/*.map'],
         },
       }),
@@ -83,6 +85,6 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: process.env.SENTRY_AUTH_TOKEN ? 'hidden' : false,
+    sourcemap: env.SENTRY_AUTH_TOKEN ? 'hidden' : false,
   },
 })

@@ -11,7 +11,7 @@ import '@/bootstrap'
 const container = document.getElementById('root')!
 const root = createRoot(
   container,
-  import.meta.env.SENTRY_DSN && {
+  import.meta.env.VITE_SENTRY_DSN && {
     // Callback called when an error is thrown and not caught by an ErrorBoundary.
     onUncaughtError: Sentry.reactErrorHandler((error, errorInfo) => {
       console.warn('Uncaught error', error, errorInfo.componentStack)
