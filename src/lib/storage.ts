@@ -1,76 +1,67 @@
-type LocalStorageKey = typeof NAME_LANGUAGE | typeof NAME_WIDGET_DATA
-// Store the language of the app
-export const NAME_LANGUAGE = 'LANGUAGE'
-// Store the json data of the widgets
-export const NAME_WIDGET_DATA = 'WIDGET'
+import { getRandomString } from './utils'
 
-type SessionStorageKey = typeof NAME_SHOULD_PRINT
-// Decide whether to auto print on the preview page
-export const NAME_SHOULD_PRINT = 'SHOULD_PRINT'
-
-export function isLocalStorageAvailable() {
+export function isStorageAvailable(): boolean {
   try {
-    const testKey = '__test__'
+    const testKey = 'TEST_KEY_' + getRandomString()
     localStorage.setItem(testKey, testKey)
     localStorage.removeItem(testKey)
     return true
-  } catch (e) {
+  } catch (error) {
+    console.error(error)
     return false
   }
 }
 
-export function getLocalStorage(key: LocalStorageKey): any {
+export function getLocalStorage(key: string): any {
   try {
     const value = localStorage.getItem(key)
-    if (!value) return ''
+    if (!value) return null
     return JSON.parse(value)
   } catch (error) {
-    return ''
+    console.error(error)
+    return null
   }
 }
 
-export function setLocalStorage(key: LocalStorageKey, value: any): boolean {
+export function setLocalStorage(key: string, value: any): void {
   try {
     localStorage.setItem(key, JSON.stringify(value))
-    return true
   } catch (error) {
-    return false
+    console.error(error)
   }
 }
 
-export function removeLocalStorage(key: LocalStorageKey): boolean {
+export function removeLocalStorage(key: string): void {
   try {
     localStorage.removeItem(key)
-    return true
   } catch (error) {
-    return false
+    console.error(error)
   }
 }
 
-export function getSessionStorage(key: SessionStorageKey): any {
+export function getSessionStorage(key: string): any {
   try {
     const value = sessionStorage.getItem(key)
-    if (!value) return ''
+    if (!value) return null
     return JSON.parse(value)
   } catch (error) {
-    return ''
+    console.error(error)
+    return null
   }
 }
 
-export function setSessionStorage(key: SessionStorageKey, value: any): boolean {
+export function setSessionStorage(key: string, value: any): void {
   try {
     sessionStorage.setItem(key, JSON.stringify(value))
-    return true
   } catch (error) {
-    return false
+    console.error(error)
   }
 }
 
-export function removeSessionStorage(key: SessionStorageKey): boolean {
+export function removeSessionStorage(key: string): void {
   try {
     sessionStorage.removeItem(key)
-    return true
   } catch (error) {
-    return false
+    console.error(error)
   }
 }

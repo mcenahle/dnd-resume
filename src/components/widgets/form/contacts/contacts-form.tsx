@@ -1,20 +1,21 @@
-import { Button } from '@/components/ui/button.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { IconSelect } from '@/components/widgets/form/contacts/icon-select.tsx'
-import { LinkInput } from '@/components/widgets/form/contacts/link-input.tsx'
-import type { LinkIconNames } from '@/components/widgets/link-icon.tsx'
-import type { LinkItemData } from '@/components/widgets/widgets-type.d.ts'
-import { createLinkItem } from '@/components/widgets/widgets-util.tsx'
-import { LINK_LENGTH_LIMIT } from '@/consts/dom.ts'
 import { produce } from 'immer'
 import { Plus, Trash2 } from 'lucide-react'
 
+import { Button } from '#ui/button'
+import { Input } from '#ui/input'
+import { IconSelect } from '#widgets/form/contacts/icon-select'
+import { LinkInput } from '#widgets/form/contacts/link-input'
+import type { LinkIconNames } from '#widgets/types'
+import type { ILinkData } from '#widgets/types'
+import { createLinkData } from '#widgets/helpers'
+import { WIDGET_CONSTRAINTS } from '#widgets/constraints'
+
 interface LinkGroupProps {
-  data: LinkItemData[]
-  onChange: (data: LinkItemData[]) => void
+  data: ILinkData[]
+  onChange: (data: ILinkData[]) => void
 }
 
-const ContactsForm = ({ data, onChange }: LinkGroupProps) => {
+export function ContactsForm({ data, onChange }: LinkGroupProps) {
   const handleIconChange = (index: number, newIcon: LinkIconNames) => {
     const nextState = produce(data, draft => {
       draft[index]['icon'] = newIcon
@@ -22,11 +23,7 @@ const ContactsForm = ({ data, onChange }: LinkGroupProps) => {
     onChange(nextState)
   }
 
-  const handleChange = (
-    index: number,
-    field: Exclude<keyof LinkItemData, 'icon'>,
-    value: string,
-  ) => {
+  const handleChange = (index: number, field: Exclude<keyof ILinkData, 'icon'>, value: string) => {
     const nextState = produce(data, draft => {
       draft[index][field] = value
     })
@@ -40,9 +37,9 @@ const ContactsForm = ({ data, onChange }: LinkGroupProps) => {
     onChange(nextState)
   }
 
-  const showCreate = data.length < LINK_LENGTH_LIMIT
+  const showCreate = data.length < WIDGET_CONSTRAINTS.basicInfo.linksPerRow
   const handleCreate = () => {
-    onChange([...data, createLinkItem()])
+    onChange([...data, createLinkData()])
   }
 
   return (
@@ -91,5 +88,3 @@ const ContactsForm = ({ data, onChange }: LinkGroupProps) => {
     </ul>
   )
 }
-
-export { ContactsForm }

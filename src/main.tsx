@@ -1,18 +1,12 @@
-import { ErrorBoundary } from '@/components/layout/error-boundary.tsx'
-import { Toaster } from '@/components/ui/sonner.tsx'
-import '@/index.css'
-import '@/init/sentry.ts'
-import '@/init/google-tag.ts'
-import '@/locales/i18n.ts'
-import { PageEdit } from '@/pages/edit/page.tsx'
-import { PagePreview } from '@/pages/preview/page.tsx'
-import { PagePrint } from '@/pages/print/page.tsx'
 import * as Sentry from '@sentry/react'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router'
+import { RouterProvider } from 'react-router'
+
+import { ErrorBoundary } from '@/components/layout/error-boundary'
+import { router } from '@/routes/index'
+
+import '@/bootstrap'
 
 const container = document.getElementById('root')!
 const root = createRoot(
@@ -31,34 +25,7 @@ const root = createRoot(
 root.render(
   <StrictMode>
     <ErrorBoundary>
-      <BrowserRouter>
-        <Toaster
-          position="top-center"
-          richColors
-          closeButton
-          offset={52}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={<PageEdit />}
-          />
-          <Route
-            path="/edit"
-            element={<PageEdit />}
-          />
-          <Route
-            path="/preview"
-            element={<PagePreview />}
-          />
-          <Route
-            path="/print"
-            element={<PagePrint />}
-          />
-        </Routes>
-        <Analytics />
-        <SpeedInsights sampleRate={0.2} />
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </ErrorBoundary>
   </StrictMode>,
 )

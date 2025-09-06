@@ -1,10 +1,10 @@
-import type { TextContentData } from '@/components/widgets/widgets-type.d.ts'
+import type { ITextContentData } from '#widgets/types'
 
 interface TextContentProps {
-  data: TextContentData['propsData']
+  data: ITextContentData['propsData']
 }
 
-const TextContent = ({ data }: TextContentProps) => {
+export function TextContent({ data }: TextContentProps) {
   const { content } = data
 
   return (
@@ -14,5 +14,3 @@ const TextContent = ({ data }: TextContentProps) => {
     ></div>
   )
 }
-
-export { TextContent }

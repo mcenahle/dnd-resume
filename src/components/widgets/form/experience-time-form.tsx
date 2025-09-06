@@ -1,15 +1,15 @@
-import { Input } from '@/components/ui/input.tsx'
-import type { ExperienceTimeData } from '@/components/widgets/widgets-type.d.ts'
+import { Input } from '#ui/input'
+import type { IExperienceTimeData } from '#widgets/types'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const ExperienceTimeForm = ({
+export function ExperienceTimeForm({
   data,
   onChange,
 }: {
-  data: ExperienceTimeData
-  onChange: (value: ExperienceTimeData) => void
-}) => {
+  data: IExperienceTimeData
+  onChange: (value: IExperienceTimeData) => void
+}) {
   const { t } = useTranslation()
   const { propsData } = data
 
@@ -53,5 +53,3 @@ const ExperienceTimeForm = ({
     </div>
   )
 }
-
-export { ExperienceTimeForm }

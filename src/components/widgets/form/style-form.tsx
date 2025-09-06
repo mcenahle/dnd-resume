@@ -1,16 +1,16 @@
-import { Input } from '@/components/ui/input.tsx'
-import { Slider } from '@/components/ui/slider.tsx'
-import type { StyleData } from '@/components/widgets/widgets-type.d.ts'
-import { MAX_MARGIN_VAL, MIN_MARGIN_VAL } from '@/consts/dom.ts'
+import { Input } from '#ui/input'
+import { Slider } from '#ui/slider'
+import type { IStyleData } from '#widgets/types'
+import { WIDGET_CONSTRAINTS } from '#widgets/constraints'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface StyleFormProps {
-  styleData: StyleData
-  onStyleChange: (styleData: StyleData) => void
+  styleData: IStyleData
+  onStyleChange: (styleData: IStyleData) => void
 }
 
-function StyleForm({ styleData, onStyleChange }: StyleFormProps) {
+export function StyleForm({ styleData, onStyleChange }: StyleFormProps) {
   const { t } = useTranslation()
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,14 +40,14 @@ function StyleForm({ styleData, onStyleChange }: StyleFormProps) {
             className="mr-2 w-32 shrink-0"
             name="marginTop"
             type="number"
-            min={MIN_MARGIN_VAL}
-            max={MAX_MARGIN_VAL}
+            min={WIDGET_CONSTRAINTS.style.margin.min}
+            max={WIDGET_CONSTRAINTS.style.margin.max}
             value={styleData.marginTop}
             onChange={handleInputChange}
           />
           <Slider
             value={[styleData.marginTop]}
-            max={MAX_MARGIN_VAL}
+            max={WIDGET_CONSTRAINTS.style.margin.max}
             step={1}
             onValueChange={val => handleSliderChange('marginTop', val[0])}
           />
@@ -62,14 +62,14 @@ function StyleForm({ styleData, onStyleChange }: StyleFormProps) {
             className="mr-2 w-32 shrink-0"
             name="marginBottom"
             type="number"
-            min={MIN_MARGIN_VAL}
-            max={MAX_MARGIN_VAL}
+            min={WIDGET_CONSTRAINTS.style.margin.min}
+            max={WIDGET_CONSTRAINTS.style.margin.max}
             value={styleData.marginBottom}
             onChange={handleInputChange}
           />
           <Slider
             value={[styleData.marginBottom]}
-            max={MAX_MARGIN_VAL}
+            max={WIDGET_CONSTRAINTS.style.margin.max}
             step={1}
             onValueChange={val => handleSliderChange('marginBottom', val[0])}
           />
@@ -78,5 +78,3 @@ function StyleForm({ styleData, onStyleChange }: StyleFormProps) {
     </ul>
   )
 }
-
-export { StyleForm }

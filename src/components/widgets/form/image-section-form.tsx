@@ -1,20 +1,20 @@
-import { Button } from '@/components/ui/button.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { Slider } from '@/components/ui/slider.tsx'
-import type { ImageSectionData } from '@/components/widgets/widgets-type.d.ts'
-import { MAX_IMAGE_BR, MAX_IMAGE_SIZE, MIN_IMAGE_BR, MIN_IMAGE_SIZE } from '@/consts/dom.ts'
+import { Button } from '#ui/button'
+import { Input } from '#ui/input'
+import { Slider } from '#ui/slider'
+import type { IImageSectionData } from '#widgets/types'
+import { WIDGET_CONSTRAINTS } from '#widgets/constraints'
 import { Upload } from 'lucide-react'
 import { useRef, type ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import invariant from 'tiny-invariant'
 
-const ImageSectionForm = ({
+export function ImageSectionForm({
   data,
   onChange,
 }: {
-  data: ImageSectionData
-  onChange: (value: ImageSectionData) => void
-}) => {
+  data: IImageSectionData
+  onChange: (value: IImageSectionData) => void
+}) {
   const { t } = useTranslation()
   const { propsData } = data
   const { url, imageSize, borderRadius } = propsData
@@ -55,7 +55,7 @@ const ImageSectionForm = ({
   }
 
   const handleNumberChange = (
-    name: keyof ImageSectionData['propsData'],
+    name: keyof IImageSectionData['propsData'],
     value: string | number,
   ) => {
     onChange({
@@ -109,15 +109,15 @@ const ImageSectionForm = ({
             className="mr-2 w-32 shrink-0"
             name="imageSize"
             type="number"
-            min={MIN_IMAGE_SIZE}
-            max={MAX_IMAGE_SIZE}
+            min={WIDGET_CONSTRAINTS.imageSection.sizePercent.min}
+            max={WIDGET_CONSTRAINTS.imageSection.sizePercent.max}
             value={imageSize}
             onChange={e => handleNumberChange('imageSize', e.target.value)}
           />
           <Slider
             value={[imageSize]}
-            min={MIN_IMAGE_SIZE}
-            max={MAX_IMAGE_SIZE}
+            min={WIDGET_CONSTRAINTS.imageSection.sizePercent.min}
+            max={WIDGET_CONSTRAINTS.imageSection.sizePercent.max}
             step={1}
             onValueChange={val => handleNumberChange('imageSize', val[0])}
           />
@@ -134,14 +134,14 @@ const ImageSectionForm = ({
             type="number"
             name="borderRadius"
             value={borderRadius}
-            min={MIN_IMAGE_BR}
-            max={MAX_IMAGE_BR}
+            min={WIDGET_CONSTRAINTS.imageSection.borderRadius.min}
+            max={WIDGET_CONSTRAINTS.imageSection.borderRadius.max}
             onChange={e => handleNumberChange('borderRadius', e.target.value)}
           />
           <Slider
             value={[borderRadius]}
-            min={MIN_IMAGE_BR}
-            max={MAX_IMAGE_BR}
+            min={WIDGET_CONSTRAINTS.imageSection.borderRadius.min}
+            max={WIDGET_CONSTRAINTS.imageSection.borderRadius.max}
             step={1}
             onValueChange={val => handleNumberChange('borderRadius', val[0])}
           />
@@ -150,5 +150,3 @@ const ImageSectionForm = ({
     </div>
   )
 }
-
-export { ImageSectionForm }

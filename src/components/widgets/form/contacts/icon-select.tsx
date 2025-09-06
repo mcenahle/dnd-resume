@@ -1,8 +1,10 @@
-import { Button } from '@/components/ui/button.tsx'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx'
-import type { LinkIconNames } from '@/components/widgets/link-icon.tsx'
-import { LinkIconComponent, linkIconNames } from '@/components/widgets/link-icon.tsx'
 import { useState } from 'react'
+
+import { Button } from '#ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '#ui/popover'
+import type { LinkIconNames } from '#widgets/types'
+import { linkIconNames } from '#widgets/types'
+import { LinkIconComponent } from '#widgets/common'
 
 interface LinkIconSelectProps {
   value: string
@@ -10,7 +12,7 @@ interface LinkIconSelectProps {
   className?: string
 }
 
-const IconSelect = ({ value, onChange, className }: LinkIconSelectProps) => {
+export function IconSelect({ value, onChange, className }: LinkIconSelectProps) {
   const [open, setOpen] = useState<boolean>(false)
   const handleClickIcon = (name: LinkIconNames) => {
     onChange(name)
@@ -52,5 +54,3 @@ const IconSelect = ({ value, onChange, className }: LinkIconSelectProps) => {
     </Popover>
   )
 }
-
-export { IconSelect }

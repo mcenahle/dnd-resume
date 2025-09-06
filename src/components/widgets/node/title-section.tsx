@@ -1,10 +1,10 @@
-import type { TitleSectionData } from '@/components/widgets/widgets-type.d.ts'
+import type { ITitleSectionData } from '#widgets/types'
 
 interface TitleSectionProps {
-  data: TitleSectionData['propsData']
+  data: ITitleSectionData['propsData']
 }
 
-const TitleSection = ({ data }: TitleSectionProps) => {
+export function TitleSection({ data }: TitleSectionProps) {
   const { title } = data
 
   return (
@@ -16,5 +16,3 @@ const TitleSection = ({ data }: TitleSectionProps) => {
     </div>
   )
 }
-
-export { TitleSection }

@@ -1,15 +1,16 @@
-import { Input } from '@/components/ui/input.tsx'
-import type { TitleSectionData } from '@/components/widgets/widgets-type.d.ts'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const TitleSectionForm = ({
+import { Input } from '#ui/input'
+import type { ITitleSectionData } from '#widgets/types'
+
+export function TitleSectionForm({
   data,
   onChange,
 }: {
-  data: TitleSectionData
-  onChange: (value: TitleSectionData) => void
-}) => {
+  data: ITitleSectionData
+  onChange: (value: ITitleSectionData) => void
+}) {
   const { t } = useTranslation()
   const { propsData } = data
 
@@ -42,5 +43,3 @@ const TitleSectionForm = ({
     </div>
   )
 }
-
-export { TitleSectionForm }

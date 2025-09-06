@@ -1,10 +1,3 @@
-import { Button } from '@/components/ui/button.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { Slider } from '@/components/ui/slider.tsx'
-import { AvatarRoundedSelect } from '@/components/widgets/form/avatar/avatar-rounded-select.tsx'
-import { ContactsForm } from '@/components/widgets/form/contacts/contacts-form.tsx'
-import type { BasicInfoData, LinkItemData } from '@/components/widgets/widgets-type.d.ts'
-import { MAX_AVATAR_SIZE, MIN_AVATAR_SIZE } from '@/consts/dom.ts'
 import { produce } from 'immer'
 import { Upload } from 'lucide-react'
 import type { ChangeEvent } from 'react'
@@ -12,13 +5,21 @@ import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import invariant from 'tiny-invariant'
 
-const BasicInfoForm = ({
+import { Button } from '#ui/button'
+import { Input } from '#ui/input'
+import { Slider } from '#ui/slider'
+import { AvatarRoundedSelect } from '#widgets/form/avatar/avatar-rounded-select'
+import { ContactsForm } from '#widgets/form/contacts/contacts-form'
+import type { IBasicInfoData, ILinkData } from '#widgets/types'
+import { WIDGET_CONSTRAINTS } from '#widgets/constraints'
+
+export function BasicInfoForm({
   data,
   onChange,
 }: {
-  data: BasicInfoData
-  onChange: (value: BasicInfoData) => void
-}) => {
+  data: IBasicInfoData
+  onChange: (value: IBasicInfoData) => void
+}) {
   const { t } = useTranslation()
   const { propsData } = data
   const { avatarUrl, avatarSize, avatarRound, name, jobTitle, linksGroup } = propsData
@@ -77,7 +78,7 @@ const BasicInfoForm = ({
     })
   }
 
-  const handleLinkGroupChange = (groupIndex: number, linkGroup: LinkItemData[]) => {
+  const handleLinkGroupChange = (groupIndex: number, linkGroup: ILinkData[]) => {
     const nextState = produce(linksGroup, draft => {
       draft[groupIndex] = linkGroup
     })
@@ -139,15 +140,15 @@ const BasicInfoForm = ({
             className="mr-1 w-32 shrink-0 2xl:mr-2"
             name="avatarSize"
             type="number"
-            min={MIN_AVATAR_SIZE}
-            max={MAX_AVATAR_SIZE}
+            min={WIDGET_CONSTRAINTS.basicInfo.avatar.size.min}
+            max={WIDGET_CONSTRAINTS.basicInfo.avatar.size.max}
             value={avatarSize}
             onChange={e => handleAvatarSizeChange(e.target.value)}
           />
           <Slider
             value={[avatarSize]}
-            min={MIN_AVATAR_SIZE}
-            max={MAX_AVATAR_SIZE}
+            min={WIDGET_CONSTRAINTS.basicInfo.avatar.size.min}
+            max={WIDGET_CONSTRAINTS.basicInfo.avatar.size.max}
             step={1}
             onValueChange={val => handleAvatarSizeChange(val[0])}
           />
@@ -204,5 +205,3 @@ const BasicInfoForm = ({
     </div>
   )
 }
-
-export { BasicInfoForm }

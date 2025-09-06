@@ -1,6 +1,6 @@
-import type { TiptapRef } from '@/components/tiptap/tiptap-editor.tsx'
-import { TiptapEditor } from '@/components/tiptap/tiptap-editor.tsx'
-import { Button } from '@/components/ui/button.tsx'
+import type { TiptapRef } from '#tiptap/editor'
+import { TiptapEditor } from '#tiptap/editor'
+import { Button } from '#ui/button'
 import {
   Dialog,
   DialogContent,
@@ -9,19 +9,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog.tsx'
-import type { TextContentData } from '@/components/widgets/widgets-type.d.ts'
+} from '#ui/dialog'
+import type { ITextContentData } from '#widgets/types'
 import { UserPen } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const TextContentForm = ({
+export function TextContentForm({
   data,
   onChange,
 }: {
-  data: TextContentData
-  onChange: (value: TextContentData) => void
-}) => {
+  data: ITextContentData
+  onChange: (value: ITextContentData) => void
+}) {
   const { t } = useTranslation()
   const { propsData } = data
 
@@ -99,5 +99,3 @@ const TextContentForm = ({
     </div>
   )
 }
-
-export { TextContentForm }

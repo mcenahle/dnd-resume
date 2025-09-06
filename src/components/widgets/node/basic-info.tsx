@@ -1,12 +1,12 @@
-import { LinkIconComponent } from '@/components/widgets/link-icon.tsx'
-import type { BasicInfoData } from '@/components/widgets/widgets-type.d.ts'
 import { clsx } from 'clsx'
+import { LinkIconComponent } from '#widgets/common'
+import type { IBasicInfoData } from '#widgets/types'
 
 interface BasicInfoProps {
-  data: BasicInfoData['propsData']
+  data: IBasicInfoData['propsData']
 }
 
-const BasicInfo = ({ data }: BasicInfoProps) => {
+export function BasicInfo({ data }: BasicInfoProps) {
   const { avatarUrl, avatarSize, avatarRound, name, jobTitle, linksGroup } = data
 
   const handleImgLoaded = () => {
@@ -67,5 +67,3 @@ const BasicInfo = ({ data }: BasicInfoProps) => {
     </div>
   )
 }
-
-export { BasicInfo }

@@ -18,6 +18,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '#tiptap': path.resolve(__dirname, './src/components/tiptap'),
+      '#ui': path.resolve(__dirname, './src/components/ui'),
+      '#widgets': path.resolve(__dirname, './src/components/widgets'),
     },
   },
   css: {

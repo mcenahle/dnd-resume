@@ -1,10 +1,10 @@
-import type { ExperienceTimeData } from '@/components/widgets/widgets-type.d.ts'
+import type { IExperienceTimeData } from '#widgets/types'
 
 interface ExperienceTimeProps {
-  data: ExperienceTimeData['propsData']
+  data: IExperienceTimeData['propsData']
 }
 
-const ExperienceTime = ({ data }: ExperienceTimeProps) => {
+export function ExperienceTime({ data }: ExperienceTimeProps) {
   const { title, dateRange } = data
 
   return (
@@ -14,4 +14,3 @@ const ExperienceTime = ({ data }: ExperienceTimeProps) => {
     </div>
   )
 }
-export { ExperienceTime }

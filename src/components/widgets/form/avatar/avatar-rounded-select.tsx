@@ -6,7 +6,7 @@ interface AvatarRoundedSelectProps {
   onChange: (rounded: boolean) => void
 }
 
-const AvatarRoundedSelect: React.FC<AvatarRoundedSelectProps> = ({ url, rounded, onChange }) => {
+export function AvatarRoundedSelect({ url, rounded, onChange }: AvatarRoundedSelectProps) {
   const activeCls = 'z-20 shadow-[0_0_12px_2px_rgba(219,99,39,0.8)]'
   return (
     <div className="flex gap-2 2xl:gap-3">
@@ -27,5 +27,3 @@ const AvatarRoundedSelect: React.FC<AvatarRoundedSelectProps> = ({ url, rounded,
     </div>
   )
 }
-
-export { AvatarRoundedSelect }
