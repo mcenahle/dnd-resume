@@ -60,7 +60,7 @@ export type ILinkGroupData = ILinkData[]
 export interface ILinkData {
   href: string
   content: string
-  icon: string
+  icon: LinkIconNames
 }
 
 export interface ITitleSectionData {

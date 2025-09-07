@@ -8,29 +8,26 @@ import { useRef, type ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import invariant from 'tiny-invariant'
 
+type PropsData = IImageSectionData['propsData']
+
 export function ImageSectionForm({
-  data,
+  propsData,
   onChange,
 }: {
-  data: IImageSectionData
-  onChange: (value: IImageSectionData) => void
+  propsData: PropsData
+  onChange: (value: PropsData) => void
 }) {
   const { t } = useTranslation()
-  const { propsData } = data
   const { url, imageSize, borderRadius } = propsData
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-
+  function handleChange<K extends keyof PropsData>(name: K, value: PropsData[K]) {
     onChange({
-      ...data,
-      propsData: {
-        ...propsData,
-        [name]: value,
-      },
+      ...propsData,
+      [name]: value,
     })
   }
 
+  // upload local image
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const handleClickUpload = () => {
     invariant(fileInputRef.current)
@@ -40,31 +37,12 @@ export function ImageSectionForm({
     const file = e.target.files?.[0]
     if (file) {
       const objectUrl = URL.createObjectURL(file)
-      onChange({
-        ...data,
-        propsData: {
-          ...propsData,
-          url: objectUrl,
-        },
-      })
+      handleChange('url', objectUrl)
       // revoke old object url to avoid memory leak
       if (propsData.url.startsWith('blob:')) {
         URL.revokeObjectURL(propsData.url)
       }
     }
-  }
-
-  const handleNumberChange = (
-    name: keyof IImageSectionData['propsData'],
-    value: string | number,
-  ) => {
-    onChange({
-      ...data,
-      propsData: {
-        ...propsData,
-        [name]: Number(value),
-      },
-    })
   }
 
   return (
@@ -76,10 +54,9 @@ export function ImageSectionForm({
         </div>
         <div className="flex items-center gap-2">
           <Input
-            name="url"
             value={url}
             placeholder={t('form.enterImageUrl')}
-            onChange={handleChange}
+            onChange={e => handleChange('url', e.target.value)}
           />
           {/* upload local image */}
           <Button
@@ -107,19 +84,17 @@ export function ImageSectionForm({
         <div className="flex items-center">
           <Input
             className="mr-2 w-32 shrink-0"
-            name="imageSize"
             type="number"
             min={WIDGET_CONSTRAINTS.imageSection.sizePercent.min}
             max={WIDGET_CONSTRAINTS.imageSection.sizePercent.max}
             value={imageSize}
-            onChange={e => handleNumberChange('imageSize', e.target.value)}
+            onChange={e => handleChange('imageSize', Number(e.target.value))}
           />
           <Slider
-            value={[imageSize]}
             min={WIDGET_CONSTRAINTS.imageSection.sizePercent.min}
             max={WIDGET_CONSTRAINTS.imageSection.sizePercent.max}
-            step={1}
-            onValueChange={val => handleNumberChange('imageSize', val[0])}
+            value={[imageSize]}
+            onValueChange={val => handleChange('imageSize', val[0])}
           />
         </div>
       </div>
@@ -132,18 +107,16 @@ export function ImageSectionForm({
           <Input
             className="mr-2 w-32 shrink-0"
             type="number"
-            name="borderRadius"
-            value={borderRadius}
             min={WIDGET_CONSTRAINTS.imageSection.borderRadius.min}
             max={WIDGET_CONSTRAINTS.imageSection.borderRadius.max}
-            onChange={e => handleNumberChange('borderRadius', e.target.value)}
+            value={borderRadius}
+            onChange={e => handleChange('borderRadius', Number(e.target.value))}
           />
           <Slider
-            value={[borderRadius]}
             min={WIDGET_CONSTRAINTS.imageSection.borderRadius.min}
             max={WIDGET_CONSTRAINTS.imageSection.borderRadius.max}
-            step={1}
-            onValueChange={val => handleNumberChange('borderRadius', val[0])}
+            value={[borderRadius]}
+            onValueChange={val => handleChange('borderRadius', val[0])}
           />
         </div>
       </div>

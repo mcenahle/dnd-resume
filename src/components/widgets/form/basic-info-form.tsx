@@ -13,28 +13,26 @@ import { ContactsForm } from '#widgets/form/contacts/contacts-form'
 import type { IBasicInfoData, ILinkData } from '#widgets/types'
 import { WIDGET_CONSTRAINTS } from '#widgets/constraints'
 
+type PropsData = IBasicInfoData['propsData']
+
 export function BasicInfoForm({
-  data,
+  propsData,
   onChange,
 }: {
-  data: IBasicInfoData
-  onChange: (value: IBasicInfoData) => void
+  propsData: PropsData
+  onChange: (value: PropsData) => void
 }) {
   const { t } = useTranslation()
-  const { propsData } = data
   const { avatarUrl, avatarSize, avatarRound, name, jobTitle, linksGroup } = propsData
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+  function handleChange<K extends keyof PropsData>(name: K, value: PropsData[K]) {
     onChange({
-      ...data,
-      propsData: {
-        ...propsData,
-        [name]: value,
-      },
+      ...propsData,
+      [name]: value,
     })
   }
 
+  // upload local image
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const handleClickUpload = () => {
     invariant(fileInputRef.current)
@@ -44,13 +42,7 @@ export function BasicInfoForm({
     const file = e.target.files?.[0]
     if (file) {
       const objectUrl = URL.createObjectURL(file)
-      onChange({
-        ...data,
-        propsData: {
-          ...propsData,
-          avatarUrl: objectUrl,
-        },
-      })
+      handleChange('avatarUrl', objectUrl)
       // revoke old object url to avoid memory leak
       if (propsData.avatarUrl.startsWith('blob:')) {
         URL.revokeObjectURL(propsData.avatarUrl)
@@ -58,37 +50,11 @@ export function BasicInfoForm({
     }
   }
 
-  const handleAvatarSizeChange = (value: string | number) => {
-    onChange({
-      ...data,
-      propsData: {
-        ...propsData,
-        avatarSize: Number(value),
-      },
-    })
-  }
-
-  const handleAvatarRoundChange = (isRound: boolean) => {
-    onChange({
-      ...data,
-      propsData: {
-        ...propsData,
-        avatarRound: isRound,
-      },
-    })
-  }
-
   const handleLinkGroupChange = (groupIndex: number, linkGroup: ILinkData[]) => {
     const nextState = produce(linksGroup, draft => {
       draft[groupIndex] = linkGroup
     })
-    onChange({
-      ...data,
-      propsData: {
-        ...propsData,
-        linksGroup: nextState,
-      },
-    })
+    handleChange('linksGroup', nextState)
   }
 
   return (
@@ -102,10 +68,9 @@ export function BasicInfoForm({
           <div className="flex items-center">
             <Input
               className="mr-1 w-32 2xl:mr-2"
-              name="avatarUrl"
               value={avatarUrl}
               placeholder={t('form.enterAvatarUrl')}
-              onChange={handleChange}
+              onChange={e => handleChange('avatarUrl', e.target.value)}
             />
             {/* upload local image */}
             <Button
@@ -126,7 +91,7 @@ export function BasicInfoForm({
           <AvatarRoundedSelect
             url={avatarUrl}
             rounded={avatarRound}
-            onChange={handleAvatarRoundChange}
+            onChange={value => handleChange('avatarRound', value)}
           />
         </div>
       </div>
@@ -138,19 +103,17 @@ export function BasicInfoForm({
         <div className="flex items-center">
           <Input
             className="mr-1 w-32 shrink-0 2xl:mr-2"
-            name="avatarSize"
             type="number"
             min={WIDGET_CONSTRAINTS.basicInfo.avatar.size.min}
             max={WIDGET_CONSTRAINTS.basicInfo.avatar.size.max}
             value={avatarSize}
-            onChange={e => handleAvatarSizeChange(e.target.value)}
+            onChange={e => handleChange('avatarSize', Number(e.target.value))}
           />
           <Slider
-            value={[avatarSize]}
             min={WIDGET_CONSTRAINTS.basicInfo.avatar.size.min}
             max={WIDGET_CONSTRAINTS.basicInfo.avatar.size.max}
-            step={1}
-            onValueChange={val => handleAvatarSizeChange(val[0])}
+            value={[avatarSize]}
+            onValueChange={value => handleChange('avatarSize', value[0])}
           />
         </div>
       </div>
@@ -160,10 +123,9 @@ export function BasicInfoForm({
           <span>{t('form.name')}</span>
         </div>
         <Input
-          name="name"
           value={name}
           placeholder={t('form.enterName')}
-          onChange={handleChange}
+          onChange={e => handleChange('name', e.target.value)}
         />
       </div>
       {/* Position */}
@@ -172,10 +134,9 @@ export function BasicInfoForm({
           <span>{t('form.position')}</span>
         </div>
         <Input
-          name="jobTitle"
           value={jobTitle}
           placeholder={t('form.enterPosition')}
-          onChange={handleChange}
+          onChange={e => handleChange('jobTitle', e.target.value)}
         />
       </div>
       {/* Contact Information */}

@@ -1,15 +1,15 @@
 import { produce } from 'immer'
 import { useTranslation } from 'react-i18next'
+import { LayoutTemplate } from 'lucide-react'
 import invariant from 'tiny-invariant'
 
-import { LayoutFill } from '@/components/common/svg-icons'
 import { BasicInfoForm } from '#widgets/form/basic-info-form'
 import { ExperienceTimeForm } from '#widgets/form/experience-time-form'
 import { ImageSectionForm } from '#widgets/form/image-section-form'
 import { StyleForm } from '#widgets/form/style-form'
 import { TextContentForm } from '#widgets/form/text-content-form'
 import { TitleSectionForm } from '#widgets/form/title-section-form'
-import type { IStyleData } from '#widgets/types'
+import type { IStyleData, IWidgetNode } from '#widgets/types'
 import { useWidgetMaterialList } from '#widgets/common'
 import type { WidgetsState } from '@/store'
 import { useWidgetsStore } from '@/store'
@@ -17,8 +17,7 @@ import { useWidgetsStore } from '@/store'
 export function PanelConfig() {
   const { t } = useTranslation()
   const widgetMaterialList = useWidgetMaterialList()
-  const widgets = useWidgetsStore(state => state.widgets)
-  const setWidgets = useWidgetsStore(state => state.setWidgets)
+  const updateWidget = useWidgetsStore(state => state.updateWidget)
 
   const activeWidget = useWidgetsStore((state: WidgetsState) => {
     const { widgets, activeId } = state
@@ -26,70 +25,70 @@ export function PanelConfig() {
   })
   if (!activeWidget) return null
 
+  const widgetMaterialInfo = widgetMaterialList.find(item => item.type === activeWidget.type)
+  invariant(widgetMaterialInfo)
+
   /**
    * widget form
    */
-  const widgetMaterialInfo = widgetMaterialList.find(item => item.type === activeWidget.type)
-  invariant(widgetMaterialInfo)
-  const onDataChange = (data: any) => {
-    const newWidgets = widgets.map(item => {
-      if (item.id === activeWidget.id) {
-        return { ...item, data }
-      }
-      return item
+  const onPropsDataChange = (propsData: IWidgetNode['data']['propsData']) => {
+    const nextState = produce(activeWidget, draft => {
+      draft.data.propsData = propsData
     })
-    setWidgets(newWidgets)
+    updateWidget(nextState)
   }
-  const FormComponent = (() => {
+  const WidgetForm = (() => {
     switch (activeWidget.type) {
       case 'BasicInfo':
         return (
           <BasicInfoForm
-            data={activeWidget.data}
-            onChange={onDataChange}
+            propsData={activeWidget.data.propsData}
+            onChange={onPropsDataChange}
           />
         )
       case 'TitleSection':
         return (
           <TitleSectionForm
-            data={activeWidget.data}
-            onChange={onDataChange}
+            propsData={activeWidget.data.propsData}
+            onChange={onPropsDataChange}
           />
         )
       case 'ExperienceTime':
         return (
           <ExperienceTimeForm
-            data={activeWidget.data}
-            onChange={onDataChange}
+            propsData={activeWidget.data.propsData}
+            onChange={onPropsDataChange}
           />
         )
       case 'TextContent':
         return (
           <TextContentForm
-            data={activeWidget.data}
-            onChange={onDataChange}
+            propsData={activeWidget.data.propsData}
+            onChange={onPropsDataChange}
           />
         )
       case 'ImageSection':
         return (
           <ImageSectionForm
-            data={activeWidget.data}
-            onChange={onDataChange}
+            propsData={activeWidget.data.propsData}
+            onChange={onPropsDataChange}
           />
         )
+      default: {
+        const _exhaustiveCheck: never = activeWidget
+        return _exhaustiveCheck
+      }
     }
   })()
 
   /**
    * style form
    */
-  const onStyleChange = (styleData: IStyleData) => {
-    const nextState = produce(widgets, draft => {
-      const widget = draft.find(item => item.id === activeWidget.id)
-      invariant(widget)
-      widget.data.styleData = styleData
+  const onStyleDataChange = (styleData: IStyleData) => {
+    const nextState = produce(activeWidget, draft => {
+      draft.data.styleData = styleData
     })
-    setWidgets(nextState)
+    updateWidget(nextState)
   }
 
   return (
@@ -97,21 +96,18 @@ export function PanelConfig() {
       {/* specific widget form */}
       <div className="flex items-center text-xl">
         {widgetMaterialInfo.icon}
-        <span className="ml-2 text-xl font-medium">{widgetMaterialInfo.title}</span>
+        <span className="ml-2 font-medium">{widgetMaterialInfo.title}</span>
       </div>
-      {FormComponent}
+      {WidgetForm}
 
       {/* common style form */}
-      <div className="mt-4 flex items-center">
-        <LayoutFill
-          width={20}
-          height={20}
-        />
-        <span className="ml-2 text-xl font-medium">{t('form.styleLayout')}</span>
+      <div className="mt-4 flex items-center text-xl">
+        <LayoutTemplate className="icon-size" />
+        <span className="ml-2 font-medium">{t('form.styleLayout')}</span>
       </div>
       <StyleForm
         styleData={activeWidget.data.styleData}
-        onStyleChange={onStyleChange}
+        onChange={onStyleDataChange}
       />
     </div>
   )

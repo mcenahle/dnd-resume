@@ -8,6 +8,7 @@ export interface WidgetsState {
   widgets: IWidgetNode[]
   addWidget: (widget: IWidgetNode) => void
   removeWidget: (id: string) => void
+  updateWidget: (widget: IWidgetNode) => void
   setWidgets: (widgets: IWidgetNode[]) => void
   resetWidgets: () => void
 
@@ -55,6 +56,13 @@ export const useWidgetsStore = create<WidgetsState>()(set => {
         return {
           widgets: newWidgets,
           activeId,
+        }
+      })
+    },
+    updateWidget: (widget: IWidgetNode) => {
+      set(({ widgets }) => {
+        return {
+          widgets: widgets.map(item => (item.id === widget.id ? widget : item)),
         }
       })
     },

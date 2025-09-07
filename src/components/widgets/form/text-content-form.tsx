@@ -1,3 +1,7 @@
+import { UserPen } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import type { TiptapRef } from '#tiptap/editor'
 import { TiptapEditor } from '#tiptap/editor'
 import { Button } from '#ui/button'
@@ -11,20 +15,26 @@ import {
   DialogTrigger,
 } from '#ui/dialog'
 import type { ITextContentData } from '#widgets/types'
-import { UserPen } from 'lucide-react'
-import { useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+
+type PropsData = ITextContentData['propsData']
 
 export function TextContentForm({
-  data,
+  propsData,
   onChange,
 }: {
-  data: ITextContentData
-  onChange: (value: ITextContentData) => void
+  propsData: PropsData
+  onChange: (value: PropsData) => void
 }) {
   const { t } = useTranslation()
-  const { propsData } = data
 
+  function handleChange<K extends keyof PropsData>(name: K, value: PropsData[K]) {
+    onChange({
+      ...propsData,
+      [name]: value,
+    })
+  }
+
+  // edit rich text
   const [content, setContent] = useState('')
   const [open, setOpen] = useState<boolean>(false)
   const handleOpenChange = (open: boolean) => {
@@ -39,14 +49,7 @@ export function TextContentForm({
   const editorRef: TiptapRef = useRef(null)
   const handleSave = () => {
     if (editorRef.current) {
-      const content = editorRef.current.getHTML()
-      onChange({
-        ...data,
-        propsData: {
-          ...propsData,
-          content,
-        },
-      })
+      handleChange('content', editorRef.current.getHTML())
     }
     handleOpenChange(false)
   }

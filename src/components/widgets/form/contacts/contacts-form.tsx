@@ -5,7 +5,6 @@ import { Button } from '#ui/button'
 import { Input } from '#ui/input'
 import { IconSelect } from '#widgets/form/contacts/icon-select'
 import { LinkInput } from '#widgets/form/contacts/link-input'
-import type { LinkIconNames } from '#widgets/types'
 import type { ILinkData } from '#widgets/types'
 import { createLinkData } from '#widgets/helpers'
 import { WIDGET_CONSTRAINTS } from '#widgets/constraints'
@@ -16,14 +15,11 @@ interface LinkGroupProps {
 }
 
 export function ContactsForm({ data, onChange }: LinkGroupProps) {
-  const handleIconChange = (index: number, newIcon: LinkIconNames) => {
-    const nextState = produce(data, draft => {
-      draft[index]['icon'] = newIcon
-    })
-    onChange(nextState)
-  }
-
-  const handleChange = (index: number, field: Exclude<keyof ILinkData, 'icon'>, value: string) => {
+  const handleChange = <K extends keyof ILinkData>(
+    index: number,
+    field: K,
+    value: ILinkData[K],
+  ) => {
     const nextState = produce(data, draft => {
       draft[index][field] = value
     })
@@ -51,7 +47,7 @@ export function ContactsForm({ data, onChange }: LinkGroupProps) {
         >
           <IconSelect
             value={item.icon}
-            onChange={newIcon => handleIconChange(index, newIcon)}
+            onChange={newIcon => handleChange(index, 'icon', newIcon)}
             className="mr-1 shrink-0"
           />
           <Input

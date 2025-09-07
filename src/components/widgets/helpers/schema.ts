@@ -1,9 +1,11 @@
 import { z } from 'zod'
 
+import { linkIconNames } from '#widgets/types'
+
 const linkSchema = z.object({
   href: z.string(),
   content: z.string(),
-  icon: z.string(),
+  icon: z.enum(linkIconNames),
 })
 
 const basicInfoSchema = z.object({
